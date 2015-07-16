@@ -28,7 +28,7 @@ switch (strtolower($level)) {
 
 
 
-sendOutput($response);
+sendOutput($response,1);
 exit;
 
 $exploded_text = explode('*',$text);
