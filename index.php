@@ -1,13 +1,38 @@
 <?php
 
+getInput();
+
+$message = "Your Phone number is: ".$phoneNumber.". Session is: ".$sessionId." You have sent text as: ".$text;
+
+sendOutput($message,1);
+
+
+
+////
+
+
+
+function getInput(){
+
 $sessionId   = $_REQUEST["sessionId"];
 $serviceCode = $_REQUEST["serviceCode"];
 $phoneNumber = $_REQUEST["phoneNumber"];
 $text        = $_REQUEST["text"];
 
+}
 
+function sendOutput($message,$type=2){
+	//Type 1 is a continuation, type 2 output is an end
 
-echo "END Your Phone number is: ".$phoneNumber.". Session is: ".$sessionId." You have sent text as: ".$text;
+	if($type==1){
+		echo "CON ".$message;
+	}elseif($type==2){
+		echo "END ".$message;
+	}else{
+		echo "END We faced an error";
+	}
+
+}
 //
 // *222*4*5*7#
 // Structure of a USSD Code
