@@ -1,4 +1,27 @@
 <?php
+
+$id = $_REQUEST['id'];
+
+$leo = array('name'=>'Leo', 'staff_id' => 1234);
+
+$macharia = array('name'=>'Macharia', 'staff_id' => 12345);
+
+$kevin = array('name'=>'Kevin', 'staff_id' => 231);
+
+ $staff = array('1234'=>$leo,'12345'=>$macharia,'231'=>$kevin);
+
+if(!empty($staff[$id])){
+  echo "ID is valid and it belongs to ".$staff[$id]['name'];
+
+}else{
+
+echo "No Staff with that id";
+}
+//print_r($staff);
+ exit;
+
+
+
 $input = getInput();
 
 
