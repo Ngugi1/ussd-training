@@ -1,8 +1,25 @@
 <?php
+$input = getInput();
 
-getInput();
 
-$message = "Your Phone number is: ".$phoneNumber.". Session is: ".$sessionId." You have sent text as: ".$text;
+if ( $input['text'] == "" ) {
+     // This is the first request. Note how we start the response with CON
+     $response  = "Safaricom+".PHP_EOL;
+     $response .= "MPESA";
+	 sendOutput($response,1);
+}else{
+	 $response  = "Send money".PHP_EOL;
+	 $response  .= "Withdraw Cash".PHP_EOL;
+	 $response  .= "Buy Airtime".PHP_EOL;
+	 $response  .= "M-Shwari".PHP_EOL;
+	 $response  .= "Lipa na M-PESA".PHP_EOL;
+	 $response  .= "My account".PHP_EOL;
+	 sendOutput($response,2);
+}
+
+
+
+$message = "Your Phone number is: ".$input['phoneNumber'].". Session is: ".$input['sessionId']." You have sent text as: ".$input['text'];
 
 sendOutput($message,1);
 
@@ -13,11 +30,13 @@ sendOutput($message,1);
 
 
 function getInput(){
+$input = array();
+$input['sessionId']   = $_REQUEST["sessionId"];
+$input['serviceCode'] = $_REQUEST["serviceCode"];
+$input['phoneNumber'] = $_REQUEST["phoneNumber"];
+$input['text']        = $_REQUEST["text"];
 
-$sessionId   = $_REQUEST["sessionId"];
-$serviceCode = $_REQUEST["serviceCode"];
-$phoneNumber = $_REQUEST["phoneNumber"];
-$text        = $_REQUEST["text"];
+return $input;
 
 }
 
@@ -31,9 +50,8 @@ function sendOutput($message,$type=2){
 	}else{
 		echo "END We faced an error";
 	}
-
-}
-//
+	exit;
+}//
 // *222*4*5*7#
 // Structure of a USSD Code
 // *222*Leo*Secondname*34234*Nairobi#

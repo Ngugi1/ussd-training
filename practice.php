@@ -11,6 +11,7 @@
 //
 // $kevin = ['name'=>'Kevin', 'staff_id' => 231];
 
+$kevin['name'] = "Kevin";
 $names = ['Leo','Macharia','Kevin'];
 
 $ids = [1234,12345,231];
