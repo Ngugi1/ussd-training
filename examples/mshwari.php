@@ -68,7 +68,7 @@ function getLevelOneMenu($text){
   switch (strtolower($text)) {
       case 1:
       $response  = "1. Request Loan".PHP_EOL;
-      $response  .= "1. Pay Loan";
+      $response  .= "2. Pay Loan";
           break;
       case 2:
        $response = "Your balance is Ksh. 235. Thanks for using MShwari";

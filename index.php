@@ -1,57 +1,94 @@
 <?php
+//text bt
 
-$id = $_REQUEST['id'];
+//text is blank = Level 0
+//second text is not empty but does have * = level 1
+//third text has one star = level 2
 
-$leo = array('name'=>'Leo', 'staff_id' => 1234);
+$text= $_REQUEST['text'];
 
-$macharia = array('name'=>'Macharia', 'staff_id' => 12345);
+$result =  getLevel($text);
 
-$kevin = array('name'=>'Kevin', 'staff_id' => 231);
-
- $staff = array('1234'=>$leo,'12345'=>$macharia,'231'=>$kevin);
-
-if(!empty($staff[$id])){
-  echo "ID is valid and it belongs to ".$staff[$id]['name'];
-
-}else{
-
-echo "No Staff with that id";
+$level = $result['level'];
+$message = $result['latest_message'];
+switch (strtolower($level)) {
+    case 0:
+    $response = getHomeMenu();
+        break;
+    case 1:
+    $response = getLevelOneMenu($message);
+     break;
+    case 2:
+     $response = getLevelOneMenu($message);
+      break;
+    default:
+     $response = getHomeMenu();
+    break;
 }
-//print_r($staff);
- exit;
 
 
 
+sendOutput($response,1);
+exit;
+
+$exploded_text = explode('*',$text);
+
+print_r($exploded_text);
+exit;
+
+
+//1*1*3*5
 $input = getInput();
-
 
 if ( $input['text'] == "" ) {
      // This is the first request. Note how we start the response with CON
-     $response  = "Safaricom+".PHP_EOL;
-     $response .= "MPESA";
+     $response  = "1. Loan".PHP_EOL;
+     $response  .= "2. M-Shwari Balance";
 	 sendOutput($response,1);
 }else{
-	 $response  = "Send money".PHP_EOL;
-	 $response  .= "Withdraw Cash".PHP_EOL;
-	 $response  .= "Buy Airtime".PHP_EOL;
-	 $response  .= "M-Shwari".PHP_EOL;
-	 $response  .= "Lipa na M-PESA".PHP_EOL;
-	 $response  .= "My account".PHP_EOL;
-	 sendOutput($response,2);
+
+  switch (strtolower($input['text'])) {
+      case 1:
+      $response  = "1. Request Loan".PHP_EOL;
+      $response  .= "1. Pay Loan";
+          break;
+      case 2:
+       $response = "Your balance is Ksh. 235. Thanks for using MShwari";
+       sendOutput($response,2);
+       break;
+      default:
+        $response = "We could not understand your response";
+        break;
+  }
+  sendOutput($response,1);
 }
 
+function getLevelOneMenu($text){
 
+  switch (strtolower($text)) {
+      case 1:
+      $response  = "1. Request Loan".PHP_EOL;
+      $response  .= "1. Pay Loan";
+          break;
+      case 2:
+       $response = "Your balance is Ksh. 235. Thanks for using MShwari";
+       sendOutput($response,2);
+       break;
+      default:
+        $response = "We could not understand your response";
+        break;
+  }
+  return $response;
 
-$message = "Your Phone number is: ".$input['phoneNumber'].". Session is: ".$input['sessionId']." You have sent text as: ".$input['text'];
+}
+function getHomeMenu(){
+  $response  = "1. Loan".PHP_EOL;
+  $response  .= "2. M-Shwari Balance";
 
-sendOutput($message,1);
+  return $response;
+}
 
-
-
-////
-
-
-
+//verify if the id belongs to one of the staff members
 function getInput(){
 $input = array();
 $input['sessionId']   = $_REQUEST["sessionId"];
@@ -62,7 +99,17 @@ $input['text']        = $_REQUEST["text"];
 return $input;
 
 }
+function getLevel($text){
+  if($text == ""){
+    $response['level'] = 0;
+  }else{
+    $exploded_text = explode('*',$text);
+    $response['level'] = count($exploded_text);
+    $response['latest_message'] = end($exploded_text);
 
+  }
+  return $response;
+}
 function sendOutput($message,$type=2){
 	//Type 1 is a continuation, type 2 output is an end
 
@@ -74,16 +121,6 @@ function sendOutput($message,$type=2){
 		echo "END We faced an error";
 	}
 	exit;
-}//
-// *222*4*5*7#
-// Structure of a USSD Code
-// *222*Leo*Secondname*34234*Nairobi#
+}
 
-
-
-// return "hello world";
-$leo = ['name'=>'Leo', 'staff_id' => 1234];
-
-$macharia = ['name'=>'Macharia', 'staff_id' => 12345];
-
-$kevin = ['name'=>'Kevin', 'staff_id' => 231];
+?>
