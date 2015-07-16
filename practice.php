@@ -5,16 +5,26 @@
 //$leo_name = "Leo";
 
 //$leo_staff_id = 1234;
-$leo = ['name'=>'Leo', 'staff_id' => 1234];
+// $leo = ['name'=>'Leo', 'staff_id' => 1234];
+//
+// $macharia = ['name'=>'Macharia', 'staff_id' => 12345];
+//
+// $kevin = ['name'=>'Kevin', 'staff_id' => 231];
 
-$macharia = ['name'=>'Macharia', 'staff_id' => 12345];
+$names = ['Leo','Macharia','Kevin'];
 
-$kevin = ['name'=>'Kevin', 'staff_id' => 231];
+$ids = [1234,12345,231];
 
+//$combined = array($names,$ids);
+foreach ($names as $key => $name) {
+  echo $name." ".$ids[$key]."<br>";
+  # code...
+}
+exit;
+//print_r($combined);
 
-//print_r($leo);
-
-//print_r($macharia);
+//print_r($ids);
+exit;
 
 $staff = array($leo,$macharia,$kevin);
 
