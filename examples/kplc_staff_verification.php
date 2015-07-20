@@ -1,8 +1,41 @@
 <?php
+//connection to the database
+require_once('connect.php');
+//lets create Edwin Ipsum
+
+$first_name = 'Jean';
+$last_name = 'Baptiste';
+
+$result = createStaff($first_name,$last_name);
+
+echo $result;
+
+exit;
 
 $input = getInput();
 
-// As Edwin I want to dial a shortcode then enter the KPLC staff ID and find out if he is valid
+// As Edwin I want to dial a shortcode
+//then enter the KPLC staff ID and find out if he is valid
+
+//verbs
+/*
+Dial - external
+enter - external
+find out if valid - internal method to find out staff validity
+*/
+//nouns
+/*
+Edwin - user
+shortcode - //
+KPLC Staff Id //
+valid
+kplc staff // Staff (id), valid or invalid
+*/
+
+/*tables
+staff (id, first_name, last_name,status) - Methods
+
+*/
 
 //Dial a code
 
@@ -61,5 +94,16 @@ function sendOutput($message,$type=2){
 	}
 	exit;
 }
+
+//create staff
+function createStaff($first_name,$last_name){
+
+  $query = mysql_query("INSERT INTO staff (first_name,last_name)
+  VALUES ('$first_name','$last_name')");
+
+  return $query;
+}
+
+
 
 ?>
