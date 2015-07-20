@@ -3,7 +3,7 @@
 require_once('connect.php');
 //lets create Edwin Ipsum
 
-$id = $_REQUEST['id'];
+/*/$id = $_REQUEST['id'];
 
 $first_name = 'IPSUM';
 $result = updateStaff($id,$first_name);
@@ -19,7 +19,7 @@ $result = createStaff($first_name,$last_name);
 echo $result;
 
 exit;
-
+*/
 $input = getInput();
 
 // As Edwin I want to dial a shortcode
@@ -57,7 +57,7 @@ if ( $input['text'] == "" ) {
 	//receive what Edwin has sent in as text
 	$id = $input['text'];
 
-
+/*
 $leo = array('name'=>'Leo', 'staff_id' => 1234);
 
 $macharia = array('name'=>'Macharia', 'staff_id' => 12345);
@@ -65,9 +65,11 @@ $macharia = array('name'=>'Macharia', 'staff_id' => 12345);
 $kevin = array('name'=>'Kevin', 'staff_id' => 231);
 
  $staff = array('1234'=>$leo,'12345'=>$macharia,'231'=>$kevin);
+*/
+$staff = getStaff($id);
 
-if(!empty($staff[$id])){
-  $message= "ID is valid and it belongs to ".$staff[$id]['name'];
+if($staff['id'] != 0){
+  $message= "ID is valid and it belongs to ".$staff['first_name']." ".$staff['last_name'];
 
 }else{
  $message =  "No Staff with that id";
