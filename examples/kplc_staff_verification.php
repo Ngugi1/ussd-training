@@ -5,7 +5,8 @@ require_once('connect.php');
 
 $id = $_REQUEST['id'];
 
-$result = getStaff($id);
+$first_name = 'IPSUM';
+$result = updateStaff($id,$first_name);
 
 print_r($result);
 exit;
@@ -122,6 +123,21 @@ function getStaff($id){
 
    return $row;
 
+}
+
+function deleteStaff($id){
+
+  $query = mysql_query("DELETE FROM staff WHERE id='$id'");
+
+  return $query;
+
+}
+
+function updateStaff($id,$first_name){
+
+  $query = mysql_query("UPDATE staff SET first_name='$first_name' WHERE id='$id'");
+
+  return $query;
 
 }
 
