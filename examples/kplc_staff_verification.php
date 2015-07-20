@@ -3,6 +3,13 @@
 require_once('connect.php');
 //lets create Edwin Ipsum
 
+$id = $_REQUEST['id'];
+
+$result = getStaff($id);
+
+print_r($result);
+exit;
+
 $first_name = 'Jean';
 $last_name = 'Baptiste';
 
@@ -102,6 +109,20 @@ function createStaff($first_name,$last_name){
   VALUES ('$first_name','$last_name')");
 
   return $query;
+}
+
+function getStaff($id){
+    $query = mysql_query("SELECT * FROM staff WHERE id='$id'");
+
+    if (mysql_num_rows($query) > 0) {
+        $row = mysql_fetch_assoc($query);
+    } else {
+      $row['id'] = 0;
+    }
+
+   return $row;
+
+
 }
 
 
