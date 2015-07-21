@@ -7,20 +7,23 @@ $reply = "Thank you for your SMS";
 sendSmsOutput($sms['from'],$reply);
 exit;
 //send back a message to the phone number_format
-function sendSmsOutput($to,$message){
-  $payload['payload'] = array('task'=>'send','secret'=>'');
+function sendSmsOutput($number,$message){
 
-  $messages = array('to'=>$to,'message'=>$message);
+  			  		//lets add the variables to the records array
+  			  		if(is_array($msg)){
+  			  			$records[0]= array( 'message' => $msg[0], 'to' => $number[0]);
+  						$records[1]= array( 'message' => $msg[1], 'to' => $number[1]);
+  			  		}else{
+  			  	$records[]= array( 'message' => $msg, 'to' => $number);
+  					}
+  			  	$sms_array= array();
+  				$sms_array[] = array('success'=>"true",'secret'=>"",'task'=>"send",'messages'=>$records);
+  				$payload= array('payload'=>$sms_array[0]);
+  				header('content-type: application/json; charset=utf-8');
+  				echo json_encode($payload);
+  				//mysql_close($connect);
+  			  }
 
-  //array_push($reply['messages'],$message1);
-  $payload['payload']['messages'] = $messages;
-  header('content-type: application/json; charset=utf-8');
-	echo json_encode($payload);
-  //array_push($payload['payload'],$reply);
-  // print_r($payload);
-  exit;
-
-}
 function getSmsInput(){
   $sms['from'] = $_REQUEST['from'];
   $sms['message'] = $_REQUEST['message'];
