@@ -1,6 +1,6 @@
 <?php
 //receive the sms, phone, Message
-include(kplc_staff_verification.php);
+require_once('connect.php');
 
 $sms = getSmsInput();
 
@@ -40,7 +40,18 @@ function getSmsInput(){
   $sms['message'] = trim($_REQUEST['message']);
   return $sms;
 }
+function getStaff($id){
+    $query = mysql_query("SELECT * FROM staff WHERE id='$id'");
 
+    if (mysql_num_rows($query) > 0) {
+        $row = mysql_fetch_assoc($query);
+    } else {
+      $row['id'] = 0;
+    }
+
+   return $row;
+
+}
 
 
 
