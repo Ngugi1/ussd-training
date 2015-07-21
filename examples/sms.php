@@ -1,8 +1,19 @@
 <?php
 //receive the sms, phone, Message
+include(kplc_staff_verification.php);
+
 $sms = getSmsInput();
 
-$reply = "Thank you for your SMS";
+$staff = getStaff($sms['message']);
+
+if($staff['id'] != 0){
+  $reply= "ID is valid and it belongs to ".$staff['first_name']." ".$staff['last_name'];
+
+}else{
+ $reply =  "No Staff with that id";
+}
+
+//$reply = "Thank you for your SMS";
 
 sendSmsOutput($sms['from'],$reply);
 exit;
@@ -26,7 +37,7 @@ function sendSmsOutput($number,$msg){
 
 function getSmsInput(){
   $sms['from'] = $_REQUEST['from'];
-  $sms['message'] = $_REQUEST['message'];
+  $sms['message'] = trim($_REQUEST['message']);
   return $sms;
 }
 
