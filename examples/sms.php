@@ -7,7 +7,7 @@ $reply = "Thank you for your SMS";
 sendSmsOutput($sms['from'],$reply);
 exit;
 //send back a message to the phone number_format
-function sendSmsOutput($number,$message){
+function sendSmsOutput($number,$msg){
 
   			  		//lets add the variables to the records array
   			  		if(is_array($msg)){
